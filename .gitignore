@@ -1,0 +1,20 @@
+# ignore codeblocks
+*.depend
+*.layout
+*.cbp
+*.cscope_file_list
+
+# ignore build directories
+/bin/*
+/obj/*
+
+# ignore dlls
+*.dll
+
+# Ignore Windows
+Thumbs.db
+Desktop.ini
+*.exe
+
+# c++
+*.o
