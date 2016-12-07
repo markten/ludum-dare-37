@@ -5,9 +5,6 @@
 
 namespace Display
 {
-    constexpr static int SCREEN_WIDTH = 800;
-    constexpr static int SCREEN_HEIGHT = 600;
-
     SDL_Window* window;
     SDL_Surface* sWindowSurface;
 
@@ -59,7 +56,7 @@ namespace Display
 
     void update()
     {
-        //window->display();
+        SDL_UpdateWindowSurface(window);
     }
 
     bool isOpen()
@@ -74,6 +71,11 @@ namespace Display
         }
 
         return true;
+    }
+
+    SDL_Surface* getSurface()
+    {
+        return sWindowSurface;
     }
 
 }

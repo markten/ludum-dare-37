@@ -1,6 +1,8 @@
 #ifndef DISPLAY_HPP_INCLUDED
 #define DISPLAY_HPP_INCLUDED
 
+#include <SDL2/SDL.h>
+
 namespace Display
 {
 
@@ -11,6 +13,11 @@ namespace Display
     void update();
 
     bool isOpen();
+
+    SDL_Surface* getSurface();
+
+    constexpr static int SCREEN_WIDTH = 800;
+    constexpr static int SCREEN_HEIGHT = 600;
 
 }
 
