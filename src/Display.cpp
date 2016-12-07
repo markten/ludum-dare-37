@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 namespace Display
 {
@@ -35,7 +36,16 @@ namespace Display
             }
             else
             {
-                sWindowSurface = SDL_GetWindowSurface(window);
+                int imgFlags = IMG_INIT_PNG;
+                if(!(IMG_Init(imgFlags) & imgFlags))
+                {
+                    std::cout << "SDL_image could not instantialize! SDL_image Error: " << IMG_GetError() << std::endl;
+                    success = false;
+                }
+                else
+                {
+                    sWindowSurface = SDL_GetWindowSurface(window);
+                }
             }
         }
 

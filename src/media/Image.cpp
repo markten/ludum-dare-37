@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "../Display.hpp"
 
@@ -24,10 +25,10 @@ namespace Media
     {
         bool success = true;
 
-        SDL_Surface* tempSurface = SDL_LoadBMP(fileName.c_str());
+        SDL_Surface* tempSurface = IMG_Load(fileName.c_str());
         if(tempSurface == NULL)
         {
-            std::cout << "Unable to load image " << fileName << " SDL Error: " << SDL_GetError() <<std::endl;
+            std::cout << "Unable to load image " << fileName << " SDL_image Error: " << IMG_GetError() <<std::endl;
             success = false;
         }
         else
