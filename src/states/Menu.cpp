@@ -6,24 +6,23 @@
 #include <SDL2/SDL.h>
 
 #include "../Display.hpp"
-#include "../media/Image.hpp"
 #include "../Game.hpp"
-
-enum ImageSurfaces
-{
-    TEST_IMAGE,
-    IMAGE_SURFACES_TOTAL
-};
+#include "../media/Texture.hpp"
+#include "../media/Sprite.hpp"
+#include "../media/Text.hpp"
 
 namespace State
 {
 
     Menu::Menu(Game& game)
-    : Game_State(game)
-    , imageSurfaces{new Media::Texture*[IMAGE_SURFACES_TOTAL]}
+    : Game_State(game, TEXTURES_TOTAL, TEXTS_TOTAL)
     {
-        imageSurfaces[TEST_IMAGE] = new Media::Texture();
-        imageSurfaces[TEST_IMAGE]->load("test.jpg");
+        loadMedia();
+    }
+
+    Menu::~Menu()
+    {
+
     }
 
     void Menu::input()
@@ -79,17 +78,21 @@ namespace State
     void Menu::draw()
     {
         SDL_RenderClear( Display::getRenderer() );
-        imageSurfaces[TEST_IMAGE]->render(0,0);
+
+        sTextures[TEXTURES_TEST]->render(0,0);
+        sTexts[TEXTS_TEST]->render(20,20);
+
         SDL_RenderPresent( Display::getRenderer() );
-        /*SDL_Rect stretchRect;
-        stretchRect.x = 0;
-        stretchRect.y = 0;
-        stretchRect.w = Display::SCREEN_WIDTH;
-        stretchRect.h = Display::SCREEN_HEIGHT;
-        SDL_BlitScaled( imageSurfaces[TEST_IMAGE]->surface, NULL, Display::getSurface(), &stretchRect );
-        */
-        //SDL_BlitSurface( imageSurfaces[TEST_IMAGE]->surface, NULL, Display::getSurface(), NULL );
-        //std::cout << "Drawing!" << std::endl;
+    }
+
+    void Menu::loadMedia()
+    {
+        sTextures[TEXTURES_TEST] = new Media::Texture();
+        sTextures[TEXTURES_TEST]->load("ass/test.jpg");
+
+        SDL_Color fontColor = {0,0,0};
+        sTexts[TEXTS_TEST] = new Media::Text();
+        sTexts[TEXTS_TEST]->load("TESTING", fontColor);
 
     }
 

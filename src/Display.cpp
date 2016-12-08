@@ -3,12 +3,14 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 namespace Display
 {
     SDL_Window* window;
     SDL_Surface* sWindowSurface;
     SDL_Renderer* renderer;
+    TTF_Font* DejaVuSansMono;
 
     SDL_Event e;
 
@@ -54,6 +56,20 @@ namespace Display
                         std::cout << "SDL_image could not instantialize! SDL_image Error: " << IMG_GetError() << std::endl;
                         success = false;
                     }
+
+                    if( TTF_Init() == -1 )
+                    {
+                        std::cout << "SDL_ttf could not initialize! SDL_ttf Error: " << TTF_GetError() << std::endl;
+                        success = false;
+                    }
+
+                    DejaVuSansMono = TTF_OpenFont( "ass/DejaVuSansMono.ttf", 28 );
+                    if( DejaVuSansMono == NULL )
+                    {
+                        std::cout << "Failed to load DejaVuSansMono.ttf! SDL_ttf Error: " << TTF_GetError() << std::endl;
+                        success = false;
+                    }
+
                     else
                     {
                         sWindowSurface = SDL_GetWindowSurface(window);
@@ -69,6 +85,9 @@ namespace Display
 
     void close()
     {
+        TTF_CloseFont(DejaVuSansMono);
+        DejaVuSansMono = NULL;
+
         SDL_FreeSurface(sWindowSurface);
         sWindowSurface = NULL;
 
@@ -78,6 +97,8 @@ namespace Display
         SDL_DestroyWindow(window);
         window = NULL;
 
+        TTF_Quit();
+        IMG_Quit();
         SDL_Quit();
     }
 
@@ -94,6 +115,11 @@ namespace Display
     SDL_Renderer* getRenderer()
     {
         return renderer;
+    }
+
+    TTF_Font* getFont()
+    {
+        return DejaVuSansMono;
     }
 
 }

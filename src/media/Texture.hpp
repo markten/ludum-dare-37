@@ -17,7 +17,7 @@ namespace Media
             int getWidth();
             int getHeight();
 
-        private:
+        protected:
             SDL_Texture* texture = NULL;
 
             int width;

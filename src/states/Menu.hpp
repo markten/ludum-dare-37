@@ -23,7 +23,20 @@ namespace State
             void draw() override;
 
         private:
-            std::unique_ptr<Media::Texture*[]> imageSurfaces;
+            void loadMedia() override;
+
+            enum Textures
+            {
+                TEXTURES_TEST,
+                TEXTURES_TOTAL
+            };
+
+            enum Texts
+            {
+                TEXTS_TEST,
+                TEXTS_TOTAL
+            };
+
     };
 }
 

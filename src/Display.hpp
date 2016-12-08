@@ -2,6 +2,7 @@
 #define DISPLAY_HPP_INCLUDED
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 namespace Display
 {
@@ -14,6 +15,7 @@ namespace Display
 
     SDL_Surface* getSurface();
     SDL_Renderer* getRenderer();
+    TTF_Font* getFont();
 
     constexpr static int SCREEN_WIDTH = 800;
     constexpr static int SCREEN_HEIGHT = 600;
