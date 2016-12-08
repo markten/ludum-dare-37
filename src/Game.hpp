@@ -14,9 +14,11 @@ class Game
         void runMainGameLoop();
         void pushState(std::unique_ptr<State::Game_State>);
         void popState();
+        void quitGame();
 
     private:
         std::stack<std::unique_ptr<State::Game_State>> gameStates;
+        bool quit = false;
 };
 
 #endif // GAME_HPP_INCLUDED

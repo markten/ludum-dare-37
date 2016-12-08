@@ -8,6 +8,7 @@ namespace Display
 {
     SDL_Window* window;
     SDL_Surface* sWindowSurface;
+    SDL_Renderer* renderer;
 
     SDL_Event e;
 
@@ -27,7 +28,7 @@ namespace Display
                          SDL_WINDOWPOS_UNDEFINED,
                          SDL_WINDOWPOS_UNDEFINED,
                          SCREEN_WIDTH, SCREEN_HEIGHT,
-                         SDL_WINDOW_SHOWN );
+                         SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
 
             if(window == NULL)
             {
@@ -36,17 +37,30 @@ namespace Display
             }
             else
             {
-                int imgFlags = IMG_INIT_PNG;
-                if(!(IMG_Init(imgFlags) & imgFlags))
+                renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+                if(renderer == NULL)
                 {
-                    std::cout << "SDL_image could not instantialize! SDL_image Error: " << IMG_GetError() << std::endl;
+                    std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
                     success = false;
                 }
                 else
                 {
-                    sWindowSurface = SDL_GetWindowSurface(window);
+
+                    SDL_SetRenderDrawColor( Display::getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF );
+
+                    int imgFlags = IMG_INIT_PNG;
+                    if(!(IMG_Init(imgFlags) & imgFlags))
+                    {
+                        std::cout << "SDL_image could not instantialize! SDL_image Error: " << IMG_GetError() << std::endl;
+                        success = false;
+                    }
+                    else
+                    {
+                        sWindowSurface = SDL_GetWindowSurface(window);
+                    }
                 }
             }
+
         }
 
 
@@ -57,6 +71,9 @@ namespace Display
     {
         SDL_FreeSurface(sWindowSurface);
         sWindowSurface = NULL;
+
+        SDL_DestroyRenderer(renderer);
+        renderer = NULL;
 
         SDL_DestroyWindow(window);
         window = NULL;
@@ -69,23 +86,14 @@ namespace Display
         SDL_UpdateWindowSurface(window);
     }
 
-    bool isOpen()
-    {
-        while( SDL_PollEvent( &e ) != 0 )
-        {
-            //User requests quit
-            if( e.type == SDL_QUIT )
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     SDL_Surface* getSurface()
     {
         return sWindowSurface;
+    }
+
+    SDL_Renderer* getRenderer()
+    {
+        return renderer;
     }
 
 }

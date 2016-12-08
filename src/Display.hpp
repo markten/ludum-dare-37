@@ -12,9 +12,8 @@ namespace Display
     void clear();
     void update();
 
-    bool isOpen();
-
     SDL_Surface* getSurface();
+    SDL_Renderer* getRenderer();
 
     constexpr static int SCREEN_WIDTH = 800;
     constexpr static int SCREEN_HEIGHT = 600;

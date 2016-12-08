@@ -10,10 +10,10 @@ Game::Game()
 
 void Game::runMainGameLoop()
 {
-    while(Display::isOpen())
+    while(!quit)
     {
         gameStates.top()->input();
-        gameStates.top()->update();
+        //gameStates.top()->update();
         gameStates.top()->draw();
 
         Display::update();
@@ -29,5 +29,11 @@ void Game::popState()
 {
     gameStates.pop();
 }
+
+void Game::quitGame()
+{
+    quit = true;
+}
+
 
 

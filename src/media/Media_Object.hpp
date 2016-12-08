@@ -13,7 +13,6 @@ namespace Media
             Media_Object();
 
             virtual bool load(const std::string& fileName) = 0;
-            SDL_Surface* surface = NULL;
     };
 
 

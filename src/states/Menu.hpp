@@ -6,8 +6,9 @@
 
 #include "Game_State.hpp"
 #include "../media/Image.hpp"
+#include "../media/Texture.hpp"
 
-class Game;
+//class Game;
 
 namespace State
 {
@@ -22,7 +23,7 @@ namespace State
             void draw() override;
 
         private:
-            std::unique_ptr<Media::Image*[]> imageSurfaces;
+            std::unique_ptr<Media::Texture*[]> imageSurfaces;
     };
 }
 

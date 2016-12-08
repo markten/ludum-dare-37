@@ -17,6 +17,8 @@ namespace Media
 
             bool load(const std::string& fileName) override;
 
+            SDL_Surface* surface = NULL;
+
     };
 }
 
