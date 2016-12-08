@@ -77,12 +77,8 @@ namespace State
 
     void Menu::draw()
     {
-        SDL_RenderClear( Display::getRenderer() );
-
-        sTextures[TEXTURES_TEST]->render(0,0);
-        sTexts[TEXTS_TEST]->render(20,20);
-
-        SDL_RenderPresent( Display::getRenderer() );
+        sTextures[TEXTURES_TEST]->render(Display::SCREEN_WIDTH/2-sTextures[TEXTURES_TEST]->getWidth()/2,Display::SCREEN_HEIGHT/2-sTextures[TEXTURES_TEST]->getHeight()/2);
+        sTexts[TEXTS_TEST]->render(Display::SCREEN_WIDTH/2-sTexts[TEXTS_TEST]->getWidth()/2,Display::SCREEN_HEIGHT/2-sTexts[TEXTS_TEST]->getHeight()/2);
     }
 
     void Menu::loadMedia()
@@ -93,7 +89,6 @@ namespace State
         SDL_Color fontColor = {0,0,0};
         sTexts[TEXTS_TEST] = new Media::Text();
         sTexts[TEXTS_TEST]->load("TESTING", fontColor);
-
     }
 
 }

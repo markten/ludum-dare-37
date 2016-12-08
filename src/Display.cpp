@@ -30,7 +30,8 @@ namespace Display
                          SDL_WINDOWPOS_UNDEFINED,
                          SDL_WINDOWPOS_UNDEFINED,
                          SCREEN_WIDTH, SCREEN_HEIGHT,
-                         SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN);
+                         SDL_WINDOW_SHOWN);
+                         //| SDL_WINDOW_FULLSCREEN
 
             if(window == NULL)
             {
@@ -39,7 +40,7 @@ namespace Display
             }
             else
             {
-                renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+                renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
                 if(renderer == NULL)
                 {
                     std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
@@ -104,7 +105,10 @@ namespace Display
 
     void update()
     {
-        SDL_UpdateWindowSurface(window);
+        SDL_RenderPresent(renderer);
+        SDL_RenderClear(renderer);
+
+        //SDL_UpdateWindowSurface(window);
     }
 
     SDL_Surface* getSurface()
