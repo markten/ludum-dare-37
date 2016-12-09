@@ -13,7 +13,7 @@ void Game::runMainGameLoop()
     while(!quit)
     {
         gameStates.top()->input();
-        //gameStates.top()->update();
+        gameStates.top()->update();
         gameStates.top()->draw();
 
         Display::update();

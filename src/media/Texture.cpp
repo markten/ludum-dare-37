@@ -31,7 +31,7 @@ namespace Media
         }
         else
         {
-            SDL_SetColorKey(tempSurface, SDL_TRUE, SDL_MapRGB(tempSurface->format, 0, 0xFF, 0xFF));
+            SDL_SetColorKey(tempSurface, SDL_TRUE, SDL_MapRGB(tempSurface->format, 0, 0xFF, 0));
             texture = SDL_CreateTextureFromSurface( Display::getRenderer(), tempSurface );
             if( texture == NULL )
             {

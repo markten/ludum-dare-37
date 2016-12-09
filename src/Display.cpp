@@ -107,8 +107,6 @@ namespace Display
     {
         SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);
-
-        //SDL_UpdateWindowSurface(window);
     }
 
     SDL_Surface* getSurface()

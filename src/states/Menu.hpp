@@ -27,14 +27,20 @@ namespace State
 
             enum Textures
             {
-                TEXTURES_TEST,
-                TEXTURES_TOTAL
+                TEXTURE_TEST,
+                TEXTURE_TOTAL
+            };
+
+            enum Sprites
+            {
+                SPRITE_PLAYER,
+                SPRITE_TOTAL
             };
 
             enum Texts
             {
-                TEXTS_TEST,
-                TEXTS_TOTAL
+                TEXT_TEST,
+                TEXT_TOTAL
             };
 
     };

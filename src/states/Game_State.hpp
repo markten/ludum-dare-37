@@ -17,6 +17,7 @@ namespace State
         public:
             Game_State(Game& game,
                        uint16_t numTextures,
+                       uint16_t numSprites,
                        uint16_t numTexts);
             ~Game_State();
 
@@ -28,7 +29,7 @@ namespace State
         protected:
             Game* p_game;
             std::vector<Media::Texture*> sTextures;
-            //std::unique_ptr<Media::Sprite*[]> sSprites;
+            std::vector<Media::Sprite*> sSprites;
             std::vector<Media::Text*> sTexts;
     };
 
