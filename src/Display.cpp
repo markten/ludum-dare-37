@@ -18,6 +18,8 @@ namespace Display
     SDL_Surface* sWindowSurface;
     SDL_Renderer* renderer;
     TTF_Font* DejaVuSansMono;
+    TTF_Font* Bungee;
+    TTF_Font* BungeeOutline;
 
     // FPS counter setup
     GTimer fpsTimer;
@@ -28,7 +30,7 @@ namespace Display
     {
         bool success = true;
 
-        if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+        if(SDL_Init(SDL_INIT_VIDEO |SDL_INIT_AUDIO) < 0)
         {
             std::cout << "SDL could not initialize! SDL_error: %s\n" << SDL_GetError() << std::endl;
             success = false;
@@ -36,12 +38,12 @@ namespace Display
 
         else
         {
-            window = SDL_CreateWindow("Ludum Dare 37",
+            window = SDL_CreateWindow("Ludum Dare 37 - Robovac Simulator 2016",
                          SDL_WINDOWPOS_UNDEFINED,
                          SDL_WINDOWPOS_UNDEFINED,
                          SCREEN_WIDTH, SCREEN_HEIGHT,
                          SDL_WINDOW_SHOWN);
-                         //| SDL_WINDOW_FULLSCREEN
+                         // | SDL_WINDOW_FULLSCREEN
 
             if(window == NULL)
             {
@@ -85,6 +87,21 @@ namespace Display
                             std::cout << "Failed to load DejaVuSansMono.ttf! SDL_ttf Error: " << TTF_GetError() << std::endl;
                             success = false;
                         }
+
+                        Bungee = TTF_OpenFont( "ass/Bungee-Regular.ttf", 28 );
+                        if( Bungee == NULL )
+                        {
+                            std::cout << "Failed to load Bungee-Regular.ttf! SDL_ttf Error: " << TTF_GetError() << std::endl;
+                            success = false;
+                        }
+
+                        BungeeOutline = TTF_OpenFont( "ass/BungeeOutline-Regular.ttf", 28 );
+                        if( BungeeOutline == NULL )
+                        {
+                            std::cout << "Failed to load BungeeOutline-Regular.ttf! SDL_ttf Error: " << TTF_GetError() << std::endl;
+                            success = false;
+                        }
+
                     }
 
                     SDL_SetRenderDrawColor( Display::getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF );
@@ -101,6 +118,12 @@ namespace Display
     {
         TTF_CloseFont(DejaVuSansMono);
         DejaVuSansMono = NULL;
+
+        TTF_CloseFont(Bungee);
+        Bungee = NULL;
+
+        TTF_CloseFont(BungeeOutline);
+        BungeeOutline = NULL;
 
         SDL_FreeSurface(sWindowSurface);
         sWindowSurface = NULL;
@@ -152,7 +175,6 @@ namespace Display
 
     const char* getFPSString()
     {
-        std::cout << fpsString.str() << std::endl;
         return fpsString.str().c_str();
     }
 

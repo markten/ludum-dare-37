@@ -1,10 +1,15 @@
 #include "Game.hpp"
+
+#include <iostream>
+
 #include "Display.hpp"
 #include "states/Menu.hpp"
+#include "states/OneRoom.hpp"
 
 
 Game::Game()
 {
+    //pushState(std::make_unique<State::OneRoom>(*this));
     pushState(std::make_unique<State::Menu>(*this));
 }
 
@@ -35,5 +40,9 @@ void Game::quitGame()
     quit = true;
 }
 
+bool Game::isEmpty()
+{
+    return gameStates.empty();
+}
 
 

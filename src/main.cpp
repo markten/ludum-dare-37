@@ -5,7 +5,7 @@
 
 
 
-int main(int argc, char* args[])
+int main(int argc, char* argv[])
 {
     if(Display::init())
     {
