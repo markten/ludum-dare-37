@@ -15,7 +15,7 @@ namespace State
 {
 
     Menu::Menu(Game& game)
-    : Game_State(game, TEXTURE_TOTAL, SPRITE_TOTAL, TEXT_TOTAL)
+    : Game_State(game, TEXTURE_TOTAL, SPRITE_TOTAL, TEXT_TOTAL, SOUND_TOTAL, MUSIC_TOTAL)
     {
         loadMedia();
     }
@@ -60,6 +60,10 @@ namespace State
 
                     case SDLK_q:
                         p_game->quitGame();
+                    break;
+
+                    case SDLK_m:
+                        sSounds[SOUND_TEST]->play();
                     break;
 
                     default:
@@ -111,18 +115,29 @@ namespace State
     void Menu::loadMedia()
     {
         // Load Background
+        std::cout << "Loading textures..." << std::endl;
         sTextures[TEXTURE_TEST] = new Media::Texture();
         sTextures[TEXTURE_TEST]->load("ass/mountain.jpg");
+        std::cout << "\tdone." << std::endl;
 
         // Load Player Sprite
-        std::cout << "Loaded Player Sprite" << std::endl;
+        std::cout << "Loading sprites..." << std::endl;
         sSprites[SPRITE_PLAYER] = new Media::Sprite(0, 0);
         sSprites[SPRITE_PLAYER]->load("ass/spurdo.png");
+        std::cout << "\tdone." << std::endl;
 
         // Load Text
+        std::cout << "Loading fonts..." << std::endl;
         SDL_Color fontColor = {255,0,0};
         sTexts[TEXT_TEST] = new Media::Text();
         sTexts[TEXT_TEST]->load("TESTING", fontColor);
+        std::cout << "\tdone." << std::endl;
+
+        // Load Sounds
+        std::cout << "Loading sounds..." << std::endl;
+        sSounds[SOUND_TEST] = new Media::Sound();
+        sSounds[SOUND_TEST]->load("ass/test.ogg");
+        std::cout << "\tdone." << std::endl;
     }
 
 }

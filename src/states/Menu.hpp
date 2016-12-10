@@ -43,6 +43,17 @@ namespace State
                 TEXT_TOTAL
             };
 
+            enum Sounds
+            {
+                SOUND_TEST,
+                SOUND_TOTAL
+            };
+
+            enum Music
+            {
+                MUSIC_TEST,
+                MUSIC_TOTAL
+            };
     };
 }
 

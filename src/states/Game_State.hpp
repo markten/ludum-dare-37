@@ -6,6 +6,8 @@ class Game;
 #include "../media/Texture.hpp"
 #include "../media/Sprite.hpp"
 #include "../media/Text.hpp"
+#include "../media/Sound.hpp"
+#include "../media/Music.hpp"
 
 #include <memory>
 #include <vector>
@@ -18,7 +20,9 @@ namespace State
             Game_State(Game& game,
                        uint16_t numTextures,
                        uint16_t numSprites,
-                       uint16_t numTexts);
+                       uint16_t numTexts,
+                       uint16_t numSounds,
+                       uint16_t numMusic);
             ~Game_State();
 
             virtual void input() = 0;
@@ -31,6 +35,8 @@ namespace State
             std::vector<Media::Texture*> sTextures;
             std::vector<Media::Sprite*> sSprites;
             std::vector<Media::Text*> sTexts;
+            std::vector<Media::Sound*> sSounds;
+            std::vector<Media::Music*> sMusic;
     };
 
 }

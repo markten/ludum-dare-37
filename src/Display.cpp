@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
@@ -18,7 +19,7 @@ namespace Display
     {
         bool success = true;
 
-        if(SDL_Init(SDL_INIT_VIDEO) < 0)
+        if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
         {
             std::cout << "SDL could not initialize! SDL_error: %s\n" << SDL_GetError() << std::endl;
             success = false;
@@ -50,6 +51,7 @@ namespace Display
                 {
 
                     SDL_SetRenderDrawColor( Display::getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF );
+                    sWindowSurface = SDL_GetWindowSurface(window);
 
                     int imgFlags = IMG_INIT_PNG;
                     if(!(IMG_Init(imgFlags) & imgFlags))
@@ -58,28 +60,29 @@ namespace Display
                         success = false;
                     }
 
+                    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+                    {
+                        std::cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << std::endl;
+                        success = false;
+                    }
+
                     if( TTF_Init() == -1 )
                     {
                         std::cout << "SDL_ttf could not initialize! SDL_ttf Error: " << TTF_GetError() << std::endl;
                         success = false;
                     }
-
-                    DejaVuSansMono = TTF_OpenFont( "ass/DejaVuSansMono.ttf", 28 );
-                    if( DejaVuSansMono == NULL )
-                    {
-                        std::cout << "Failed to load DejaVuSansMono.ttf! SDL_ttf Error: " << TTF_GetError() << std::endl;
-                        success = false;
-                    }
-
                     else
                     {
-                        sWindowSurface = SDL_GetWindowSurface(window);
+                        DejaVuSansMono = TTF_OpenFont( "ass/DejaVuSansMono.ttf", 28 );
+                        if( DejaVuSansMono == NULL )
+                        {
+                            std::cout << "Failed to load DejaVuSansMono.ttf! SDL_ttf Error: " << TTF_GetError() << std::endl;
+                            success = false;
+                        }
                     }
                 }
             }
-
         }
-
 
         return success;
     }
@@ -100,6 +103,7 @@ namespace Display
 
         TTF_Quit();
         IMG_Quit();
+        Mix_Quit();
         SDL_Quit();
     }
 
