@@ -40,6 +40,7 @@ namespace State
             enum Texts
             {
                 TEXT_TEST,
+                TEXT_FPS,
                 TEXT_TOTAL
             };
 

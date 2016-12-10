@@ -24,7 +24,7 @@ namespace Media
         data = Mix_LoadWAV(fileName.c_str());
         if(data == NULL)
         {
-            std::cout << "Failed to load medium sound effect! SDL_mixer Error: " << Mix_GetError() << std::endl;
+            std::cout << "Failed to load " << fileName << " sound effect! SDL_mixer Error: " << Mix_GetError() << std::endl;
             success = false;
         }
 

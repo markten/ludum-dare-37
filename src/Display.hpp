@@ -16,6 +16,7 @@ namespace Display
     SDL_Surface* getSurface();
     SDL_Renderer* getRenderer();
     TTF_Font* getFont();
+    const char* getFPSString();
 
     constexpr static int SCREEN_WIDTH = 800;
     constexpr static int SCREEN_HEIGHT = 600;

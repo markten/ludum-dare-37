@@ -1,19 +1,28 @@
 #include "Display.hpp"
 
 #include <iostream>
+#include <sstream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "GTimer.hpp"
+
+class GTimer;
+
 namespace Display
 {
+    // Pointers to SDL components
     SDL_Window* window;
     SDL_Surface* sWindowSurface;
     SDL_Renderer* renderer;
     TTF_Font* DejaVuSansMono;
 
-    SDL_Event e;
+    // FPS counter setup
+    GTimer fpsTimer;
+    std::stringstream fpsString;
+    uint32_t frameCount = 0;
 
     bool init()
     {
@@ -42,6 +51,7 @@ namespace Display
             else
             {
                 renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
                 if(renderer == NULL)
                 {
                     std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
@@ -49,10 +59,6 @@ namespace Display
                 }
                 else
                 {
-
-                    SDL_SetRenderDrawColor( Display::getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF );
-                    sWindowSurface = SDL_GetWindowSurface(window);
-
                     int imgFlags = IMG_INIT_PNG;
                     if(!(IMG_Init(imgFlags) & imgFlags))
                     {
@@ -80,6 +86,10 @@ namespace Display
                             success = false;
                         }
                     }
+
+                    SDL_SetRenderDrawColor( Display::getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF );
+                    sWindowSurface = SDL_GetWindowSurface(window);
+                    fpsTimer.start();
                 }
             }
         }
@@ -109,8 +119,20 @@ namespace Display
 
     void update()
     {
+        // Render and clear the window
         SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);
+        ++frameCount;
+
+        // update FPS average
+        float avgFPS = frameCount / ( fpsTimer.getTicks() / 1000.f );
+        if( avgFPS > 2000000 )
+        {
+            avgFPS = 0;
+        }
+
+        fpsString.str( "" );
+        fpsString << "FPS: " << avgFPS;
     }
 
     SDL_Surface* getSurface()
@@ -126,6 +148,12 @@ namespace Display
     TTF_Font* getFont()
     {
         return DejaVuSansMono;
+    }
+
+    const char* getFPSString()
+    {
+        std::cout << fpsString.str() << std::endl;
+        return fpsString.str().c_str();
     }
 
 }

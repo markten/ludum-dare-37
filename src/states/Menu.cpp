@@ -103,6 +103,10 @@ namespace State
     void Menu::update()
     {
         sSprites[SPRITE_PLAYER]->update();
+
+        // update FPS display
+        SDL_Color fontColor = {255,0,0};
+        sTexts[TEXT_FPS]->load(Display::getFPSString(), fontColor);
     }
 
     void Menu::draw()
@@ -110,6 +114,7 @@ namespace State
         sTextures[TEXTURE_TEST]->render(0, 0);
         sSprites[SPRITE_PLAYER]->render(sSprites[SPRITE_PLAYER]->getXPosition(), sSprites[SPRITE_PLAYER]->getYPosition());
         sTexts[TEXT_TEST]->render(Display::SCREEN_WIDTH/2-sTexts[TEXT_TEST]->getWidth()/2,Display::SCREEN_HEIGHT/2-sTexts[TEXT_TEST]->getHeight()/2);
+        sTexts[TEXT_FPS]->render(0, 0);
     }
 
     void Menu::loadMedia()
@@ -131,6 +136,8 @@ namespace State
         SDL_Color fontColor = {255,0,0};
         sTexts[TEXT_TEST] = new Media::Text();
         sTexts[TEXT_TEST]->load("TESTING", fontColor);
+        sTexts[TEXT_FPS] = new Media::Text();
+        sTexts[TEXT_FPS]->load("FPS: 0", fontColor);
         std::cout << "\tdone." << std::endl;
 
         // Load Sounds
