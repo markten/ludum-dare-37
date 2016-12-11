@@ -24,34 +24,36 @@ namespace State
             void loadMedia() override;
             int frameCount = 0;
             bool displayText = true;
+            bool displayHelp = false;
+            bool playerWon = false;
 
             enum Textures
             {
                 TEXTURE_BACKGROUND,
+                TEXTURE_HELP,
                 TEXTURE_TOTAL
             };
 
             enum Sprites
             {
-                SPRITE_PLAYER,
                 SPRITE_TOTAL
             };
 
             enum Texts
             {
                 TEXT_ENTER,
+                TEXT_HELP,
                 TEXT_TOTAL
             };
 
             enum Sounds
             {
-                SOUND_TEST,
                 SOUND_TOTAL
             };
 
             enum Music
             {
-                MUSIC_TEST,
+                MUSIC_TITLE,
                 MUSIC_TOTAL
             };
     };

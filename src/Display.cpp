@@ -23,6 +23,7 @@ namespace Display
 
     // FPS counter setup
     GTimer fpsTimer;
+    GTimer capTimer;
     std::stringstream fpsString;
     uint32_t frameCount = 0;
 
@@ -53,6 +54,7 @@ namespace Display
             else
             {
                 renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+                //| SDL_RENDERER_PRESENTVSYNC
 
                 if(renderer == NULL)
                 {
@@ -87,26 +89,12 @@ namespace Display
                             std::cout << "Failed to load DejaVuSansMono.ttf! SDL_ttf Error: " << TTF_GetError() << std::endl;
                             success = false;
                         }
-
-                        Bungee = TTF_OpenFont( "ass/Bungee-Regular.ttf", 28 );
-                        if( Bungee == NULL )
-                        {
-                            std::cout << "Failed to load Bungee-Regular.ttf! SDL_ttf Error: " << TTF_GetError() << std::endl;
-                            success = false;
-                        }
-
-                        BungeeOutline = TTF_OpenFont( "ass/BungeeOutline-Regular.ttf", 28 );
-                        if( BungeeOutline == NULL )
-                        {
-                            std::cout << "Failed to load BungeeOutline-Regular.ttf! SDL_ttf Error: " << TTF_GetError() << std::endl;
-                            success = false;
-                        }
-
                     }
 
                     SDL_SetRenderDrawColor( Display::getRenderer(), 0xFF, 0xFF, 0xFF, 0xFF );
                     sWindowSurface = SDL_GetWindowSurface(window);
                     fpsTimer.start();
+                    capTimer.start();
                 }
             }
         }
@@ -118,12 +106,6 @@ namespace Display
     {
         TTF_CloseFont(DejaVuSansMono);
         DejaVuSansMono = NULL;
-
-        TTF_CloseFont(Bungee);
-        Bungee = NULL;
-
-        TTF_CloseFont(BungeeOutline);
-        BungeeOutline = NULL;
 
         SDL_FreeSurface(sWindowSurface);
         sWindowSurface = NULL;
@@ -142,6 +124,13 @@ namespace Display
 
     void update()
     {
+        int frameTicks = capTimer.getTicks();
+        if( frameTicks < SCREEN_TICKS_PER_FRAME )
+        {
+            //Wait remaining time
+            SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+        }
+
         // Render and clear the window
         SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);
@@ -154,8 +143,13 @@ namespace Display
             avgFPS = 0;
         }
 
-        fpsString.str( "" );
-        fpsString << "FPS: " << avgFPS;
+        std::cout << "AVG FPS: " << avgFPS << std::endl;
+        capTimer.start();
+    }
+
+    SDL_Window* getWindow()
+    {
+        return window;
     }
 
     SDL_Surface* getSurface()
@@ -171,11 +165,6 @@ namespace Display
     TTF_Font* getFont()
     {
         return DejaVuSansMono;
-    }
-
-    const char* getFPSString()
-    {
-        return fpsString.str().c_str();
     }
 
 }

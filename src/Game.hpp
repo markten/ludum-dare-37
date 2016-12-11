@@ -15,11 +15,16 @@ class Game
         void pushState(std::unique_ptr<State::Game_State>);
         void popState();
         void quitGame();
-        bool isEmpty();
+        void setPlayerWon(bool state);
+        bool getPlayerWon();
+        void setPlayerScore(double score);
+        double getPlayerScore();
 
     private:
         std::stack<std::unique_ptr<State::Game_State>> gameStates;
         bool quit = false;
+        bool playerWon = false;
+        double playerScore = 0.0;
 };
 
 #endif // GAME_HPP_INCLUDED

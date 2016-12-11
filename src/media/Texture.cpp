@@ -61,9 +61,9 @@ namespace Media
 
     }
 
-    void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
+    void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip, double scale)
     {
-        SDL_Rect renderRect = {x, y, width, height};
+        SDL_Rect renderRect = {x, y, scale*width, scale*height};
 
         if(clip != NULL)
         {
@@ -87,6 +87,11 @@ namespace Media
     void Texture::setAlpha(uint8_t alpha)
     {
         SDL_SetTextureAlphaMod( texture, alpha );
+    }
+
+    void Texture::setColor(uint8_t r, uint8_t g, uint8_t b)
+    {
+        SDL_SetTextureColorMod(texture, r, g, b);
     }
 
 }

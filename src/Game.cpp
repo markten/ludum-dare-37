@@ -40,9 +40,23 @@ void Game::quitGame()
     quit = true;
 }
 
-bool Game::isEmpty()
+void Game::setPlayerWon(bool state)
 {
-    return gameStates.empty();
+    playerWon = state;
 }
 
+bool Game::getPlayerWon()
+{
+    return playerWon;
+}
+
+void Game::setPlayerScore(double score)
+{
+    playerScore = score;
+}
+
+double Game::getPlayerScore()
+{
+    return playerScore;
+}
 

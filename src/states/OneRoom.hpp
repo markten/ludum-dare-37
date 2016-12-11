@@ -4,7 +4,6 @@
 #include "Game_State.hpp"
 
 #include <array>
-#include <sstream>
 
 #include "../GTimer.hpp"
 
@@ -27,17 +26,14 @@ namespace State
             bool mapIsClean();
 
             GTimer gameTimer;
-            bool playerWon = false;
-
-            std::stringstream timeString;
 
             std::array<std::array<int,20>,15> currentMap;
             std::array<std::array<int,20>,15> currentMapRotations;
 
             enum Textures
             {
+                TEXTURE_BACKGROUND,
                 TEXTURE_DIRTYFLOOR,
-                TEXTURE_CLEANFLOOR,
                 TEXTURE_BASE,
                 TEXTURE_COUCH,
                 TEXTURE_TABLE,
@@ -53,8 +49,6 @@ namespace State
 
             enum Texts
             {
-                TEXT_VICTORY1,
-                TEXT_VICTORY2,
                 TEXT_TOTAL
             };
 

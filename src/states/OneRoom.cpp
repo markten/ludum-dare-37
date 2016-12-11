@@ -138,20 +138,19 @@ namespace State
         }
 
         // check for victory
-        if(!playerWon && mapIsClean())
+        if(mapIsClean())
         {
-                timeString.str("");
-                timeString << gameTimer.getTicks() / 1000.2f << " seconds.";
-                sTexts[TEXT_VICTORY2]->load(timeString.str().c_str(), {0,0,0});
-                std::cout << "Player won in: " << gameTimer.getTicks() / 1000 << " seconds." << std::endl;
+                p_game->setPlayerWon(true);
+                p_game->setPlayerScore(gameTimer.getTicks()/1000.f);
                 gameTimer.stop();
-                playerWon = true;
+                p_game->popState();
         }
     }
 
     void OneRoom::draw()
     {
         // render floor
+        sTextures[TEXTURE_BACKGROUND]->render(0,0);
         for(int row = 0; row < 15; row++)
         {
             for(int col = 0; col < 20; col++)
@@ -159,18 +158,13 @@ namespace State
                 switch(currentMap[row][col])
                 {
                     case Map::DIRTY:
-                        sTextures[TEXTURE_CLEANFLOOR]->render(Map::GRID*col,Map::GRID*row);
                         sTextures[TEXTURE_DIRTYFLOOR]->render(Map::GRID*col,Map::GRID*row);
                         break;
-                    case Map::CLEAN:
-                        sTextures[TEXTURE_CLEANFLOOR]->render(Map::GRID*col,Map::GRID*row);
-                        break;
                     case Map::BASE:
-                        sTextures[TEXTURE_CLEANFLOOR]->render(Map::GRID*col,Map::GRID*row);
                         sTextures[TEXTURE_BASE]->render(Map::GRID*col,Map::GRID*row);
                         break;
                     default:
-                        sTextures[TEXTURE_CLEANFLOOR]->render(Map::GRID*col,Map::GRID*row);
+                        //do nothing
                     break;
                 }
             }
@@ -182,26 +176,20 @@ namespace State
         // render furniture
         sTextures[TEXTURE_COUCH]->render(5*Map::GRID, 2*Map::GRID);
         sTextures[TEXTURE_TABLE]->render(6*Map::GRID, 7*Map::GRID);
-        // render text/score
-        if(playerWon)
-        {
-            sTexts[TEXT_VICTORY1]->render((Display::SCREEN_WIDTH-sTexts[TEXT_VICTORY1]->getWidth())/2, Display::SCREEN_HEIGHT/2-100);
-            sTexts[TEXT_VICTORY2]->render((Display::SCREEN_WIDTH-sTexts[TEXT_VICTORY2]->getWidth())/2, Display::SCREEN_HEIGHT/2);
-        }
-
     }
 
     void OneRoom::loadMedia()
     {
         std::cout << "Loading textures..." << std::endl;
 
-        sTextures[TEXTURE_CLEANFLOOR] = new Media::Texture();
+        sTextures[TEXTURE_BACKGROUND] = new Media::Texture();
+        sTextures[TEXTURE_BACKGROUND]->load("ass/floor.png");
         // randomize floor texture
         srand (time(NULL));
-        int floorOpt = rand() % 2;
-        if(floorOpt==0) sTextures[TEXTURE_CLEANFLOOR]->load("ass/floor1.png");
-        if(floorOpt==1) sTextures[TEXTURE_CLEANFLOOR]->load("ass/floor2.png");
-
+        int floorR = rand() % 255 + 150;
+        int floorG = rand() % 255 + 150;
+        int floorB = rand() % 255 + 150;
+        sTextures[TEXTURE_BACKGROUND]->setColor(floorR, floorG, floorB);
 
         sTextures[TEXTURE_DIRTYFLOOR] = new Media::Texture();
         sTextures[TEXTURE_DIRTYFLOOR]->load("ass/floor_dirty.png");
@@ -235,16 +223,6 @@ namespace State
         sMusic[MUSIC_CLAVIER]->load("ass/well-tempered-clavier.ogg");
 
         std::cout << "\tdone." << std::endl;
-
-        std::cout << "Loading text..." << std::endl;
-
-        sTexts[TEXT_VICTORY1] = new Media::Text();
-        sTexts[TEXT_VICTORY1]->load("Your Time:", {0,0,0});
-
-        sTexts[TEXT_VICTORY2] = new Media::Text();
-
-        std::cout << "\tdone." << std::endl;
-
     }
 
     void OneRoom::loadMap()
