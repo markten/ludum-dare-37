@@ -49,6 +49,8 @@ namespace State
             delete(sMusic[i]);
         }
 
+        delete(sPlayer);
+
     }
 
 }

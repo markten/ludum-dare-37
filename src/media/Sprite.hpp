@@ -15,29 +15,28 @@ namespace Media
             Sprite(uint16_t numClipRects, uint16_t numCollisionRects);
             ~Sprite();
 
-            void update();
+            virtual void update();
             std::vector<SDL_Rect> getCollisionRects();
-            void setAnimating(bool animate);
-            void setXVelocity(int xVel);
-            void setYVelocity(int yVel);
+            void setVelocity(int newVelocity);
+            void setDirection(int newDirection);
+            void incrementDirection(double increment);
             int getXPosition();
             int getYPosition();
+            void setXPosition(int newXPosition);
+            void setYPosition(int newYPosition);
+            double getDirection();
 
-        private:
+        protected:
             std::vector<SDL_Rect> clipRects;
             std::vector<SDL_Rect> collisionRects;
 
             uint16_t currentClipRect = 0;
 
-            bool animating = true;
-            uint32_t frameCount = 0;
-            uint32_t totalFrames = 1;
+            int mVelocity = 0;
+            double mDirection = 0;
 
-            int xVelocity = 0;
-            int yVelocity = 0;
-
-            int xPosition = 0;
-            int yPosition = 0;
+            int xPosition = 300;
+            int yPosition = 400;
     };
 }
 

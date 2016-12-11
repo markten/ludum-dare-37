@@ -22,7 +22,7 @@ namespace State
 
         private:
             void loadMedia() override;
-            int frameCount;
+            int frameCount = 0;
             bool displayText = true;
 
             enum Textures

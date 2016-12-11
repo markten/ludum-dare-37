@@ -7,6 +7,7 @@
 
 #include "../Display.hpp"
 #include "../Game.hpp"
+#include "Game_State.hpp"
 #include "OneRoom.hpp"
 #include "../media/Texture.hpp"
 #include "../media/Sprite.hpp"

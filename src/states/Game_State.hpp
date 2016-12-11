@@ -8,6 +8,7 @@ class Game;
 #include "../media/Text.hpp"
 #include "../media/Sound.hpp"
 #include "../media/Music.hpp"
+#include "../Player.hpp"
 
 #include <memory>
 #include <vector>
@@ -37,6 +38,7 @@ namespace State
             std::vector<Media::Text*> sTexts;
             std::vector<Media::Sound*> sSounds;
             std::vector<Media::Music*> sMusic;
+            Media::Player* sPlayer = NULL;
     };
 
 }

@@ -1,5 +1,9 @@
 #include "Sprite.hpp"
 
+#include <cmath>
+
+#define PI 3.14159265
+
 namespace Media
 {
     Sprite::Sprite(uint16_t numClipRects, uint16_t numCollisionRects)
@@ -19,19 +23,20 @@ namespace Media
         return collisionRects;
     }
 
-    void Sprite::setAnimating(bool animate)
+    void Sprite::setVelocity(int newVelocity)
     {
-        animating = animate;
+        mVelocity = newVelocity;
     }
 
-    void Sprite::setXVelocity(int xVel)
+    void Sprite::setDirection(int increment)
     {
-        xVelocity = xVel;
+        // maybe update to maintain bounds
+        mDirection += increment;
     }
 
-    void Sprite::setYVelocity(int yVel)
+    void Sprite::incrementDirection(double increment)
     {
-        yVelocity = yVel;
+        mDirection += increment;
     }
 
     int Sprite::getXPosition()
@@ -44,13 +49,25 @@ namespace Media
         return yPosition;
     }
 
+    void Sprite::setXPosition(int newXPosition)
+    {
+        xPosition = newXPosition;
+    }
+
+    void Sprite::setYPosition(int newYPosition)
+    {
+        yPosition = newYPosition;
+    }
+
+    double Sprite::getDirection()
+    {
+        return mDirection;
+    }
+
     void Sprite::update()
     {
-        xPosition += xVelocity;
-        yPosition += yVelocity;
-
-        frameCount++;
-        if(frameCount >= totalFrames) frameCount = 0;
+        xPosition += mVelocity * cos((180/PI)*mDirection);
+        yPosition += mVelocity * sin((180/PI)*mDirection);
     }
 
 

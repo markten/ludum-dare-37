@@ -25,7 +25,7 @@ namespace Media
             void setAlpha(Uint8 alpha);
 
         private:
-            SDL_Color color = { 0, 0, 0 };
+            SDL_Color color = {0, 0, 0};
             std::string text;
 
     };

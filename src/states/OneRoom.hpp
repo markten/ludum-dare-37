@@ -21,17 +21,22 @@ namespace State
             void loadMedia() override;
             void loadMap();
             void printMap();
+            bool mapIsClean();
 
             std::array<std::array<int,20>,15> currentMap;
+            std::array<std::array<int,20>,15> currentMapRotations;
 
             enum Textures
             {
-                TEXTURE_FLOOR,
+                TEXTURE_DIRTYFLOOR,
+                TEXTURE_CLEANFLOOR,
+                TEXTURE_BASE,
                 TEXTURE_TOTAL
             };
 
             enum Sprites
             {
+                SPRITE_PLAYER,
                 SPRITE_TOTAL
             };
 
@@ -47,6 +52,7 @@ namespace State
 
             enum Music
             {
+                MUSIC_CLAVIER,
                 MUSIC_TOTAL
             };
 

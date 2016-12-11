@@ -30,7 +30,7 @@ namespace Display
     {
         bool success = true;
 
-        if(SDL_Init(SDL_INIT_VIDEO |SDL_INIT_AUDIO) < 0)
+        if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
         {
             std::cout << "SDL could not initialize! SDL_error: %s\n" << SDL_GetError() << std::endl;
             success = false;

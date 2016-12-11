@@ -61,10 +61,17 @@ namespace Media
 
     }
 
-    void Texture::render(int x, int y)
+    void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip)
     {
-        SDL_Rect renderrect = {x, y, width, height};
-        SDL_RenderCopy(Display::getRenderer(), texture, NULL, &renderrect);
+        SDL_Rect renderRect = {x, y, width, height};
+
+        if(clip != NULL)
+        {
+            renderRect.w = clip->w;
+            renderRect.h = clip->h;
+        }
+
+        SDL_RenderCopyEx(Display::getRenderer(), texture, clip, &renderRect, angle, center, flip);
     }
 
     int Texture::getWidth()
@@ -75,6 +82,11 @@ namespace Media
     int Texture::getHeight()
     {
         return height;
+    }
+
+    void Texture::setAlpha(uint8_t alpha)
+    {
+        SDL_SetTextureAlphaMod( texture, alpha );
     }
 
 }
