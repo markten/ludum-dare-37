@@ -23,12 +23,12 @@ namespace Media
         return collisionRects;
     }
 
-    void Sprite::setVelocity(int newVelocity)
+    void Sprite::setVelocity(double newVelocity)
     {
         mVelocity = newVelocity;
     }
 
-    void Sprite::setDirection(int increment)
+    void Sprite::setDirection(double increment)
     {
         // maybe update to maintain bounds
         mDirection += increment;
@@ -39,22 +39,22 @@ namespace Media
         mDirection += increment;
     }
 
-    int Sprite::getXPosition()
+    double Sprite::getXPosition()
     {
         return xPosition;
     }
 
-    int Sprite::getYPosition()
+    double Sprite::getYPosition()
     {
         return yPosition;
     }
 
-    void Sprite::setXPosition(int newXPosition)
+    void Sprite::setXPosition(double newXPosition)
     {
         xPosition = newXPosition;
     }
 
-    void Sprite::setYPosition(int newYPosition)
+    void Sprite::setYPosition(double newYPosition)
     {
         yPosition = newYPosition;
     }

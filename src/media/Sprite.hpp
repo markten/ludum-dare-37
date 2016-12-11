@@ -17,13 +17,13 @@ namespace Media
 
             virtual void update();
             std::vector<SDL_Rect> getCollisionRects();
-            void setVelocity(int newVelocity);
-            void setDirection(int newDirection);
+            void setVelocity(double newVelocity);
+            void setDirection(double newDirection);
             void incrementDirection(double increment);
-            int getXPosition();
-            int getYPosition();
-            void setXPosition(int newXPosition);
-            void setYPosition(int newYPosition);
+            double getXPosition();
+            double getYPosition();
+            void setXPosition(double newXPosition);
+            void setYPosition(double newYPosition);
             double getDirection();
 
         protected:
@@ -32,11 +32,11 @@ namespace Media
 
             uint16_t currentClipRect = 0;
 
-            int mVelocity = 0;
+            double mVelocity = 0;
             double mDirection = 0;
 
-            int xPosition = 300;
-            int yPosition = 400;
+            double xPosition = 300;
+            double yPosition = 400;
     };
 }
 

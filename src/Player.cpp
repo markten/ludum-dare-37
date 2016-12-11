@@ -49,6 +49,19 @@ namespace Media
         }
 
     }
+    void Player::moveBack()
+    {
+        if(goingForward && !goingBackward)
+        {
+            xPosition += mVelocity * sin(PI*mDirection/180);
+            yPosition += mVelocity * cos(PI*mDirection/180);
+        }
+        else if(!goingForward && goingBackward)
+        {
+            xPosition -= mVelocity * sin(PI*mDirection/180);
+            yPosition -= mVelocity * cos(PI*mDirection/180);
+        }
+    }
 
     void Player::setGoingForward(bool status)
     {

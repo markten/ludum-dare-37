@@ -12,6 +12,7 @@ namespace Media
             ~Player();
 
             void update() override;
+            void moveBack();
 
             void setGoingForward(bool status);
             void setGoingBackward(bool status);
@@ -26,7 +27,7 @@ namespace Media
             bool turningLeft = false;
 
             double mIncrement = 3.0;
-            int mVelocity = 5;
+            double mVelocity = 5;
 
     };
 }
