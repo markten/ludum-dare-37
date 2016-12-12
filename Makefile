@@ -14,8 +14,7 @@ obj = $(src:.cpp=.o)
 CC = g++
 
 CXXFLAGS = -std=c++14 -O3 -Wall -Wextra -pedantic
-FLAGS =  -Wl,-subsystem,windows 
-LDFLAGS = -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
+LDFLAGS = -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 Ludum_Dare_37: $(obj)
 	$(CC) -o $@ $^  $(LDFLAGS) $(FLAGS)
