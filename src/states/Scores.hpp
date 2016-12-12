@@ -3,6 +3,9 @@
 
 #include "../Game.hpp"
 
+#include <array>
+#include <sstream>
+
 namespace State
 {
     class Scores : public Game_State
@@ -18,10 +21,12 @@ namespace State
 
         private:
             void loadScores();
-            double currentScore = 0.0;
+            void saveScores();
+            std::array<std::stringstream, 3> topScores;
 
             enum Textures
             {
+                TEXTURE_BACKGROUND,
                 TEXTURE_TOTAL
             };
 
@@ -32,6 +37,10 @@ namespace State
 
             enum Texts
             {
+                TEXT_PLAYERSCORE,
+                TEXT_SCORE0,
+                TEXT_SCORE1,
+                TEXT_SCORE2,
                 TEXT_TOTAL
             };
 

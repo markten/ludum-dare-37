@@ -6,6 +6,10 @@ namespace Media
     {
 
     }
+    Media_Object::~Media_Object()
+    {
+
+    }
 }
 
 

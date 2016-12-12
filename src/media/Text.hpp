@@ -20,12 +20,8 @@ namespace Media
                           Uint8 g,
                           Uint8 b);
 
-            void setBlendMode(SDL_BlendMode blending);
-
-            void setAlpha(Uint8 alpha);
-
         private:
-            SDL_Color color = {0, 0, 0};
+            SDL_Color color = {0, 0, 0, 255};
             std::string text;
 
     };

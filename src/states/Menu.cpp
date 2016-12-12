@@ -65,6 +65,10 @@ namespace State
                         displayHelp = !displayHelp;
                     break;
 
+                    case SDLK_s:
+                        p_game->pushState(std::make_unique<State::Scores>(*p_game));
+                    break;
+
                     case SDLK_RETURN:
                         p_game->pushState(std::make_unique<State::OneRoom>(*p_game));
                     break;
@@ -119,11 +123,11 @@ namespace State
         // Load Text
         std::cout << "Loading fonts..." << std::endl;
 
-        SDL_Color fontColor = {255,0,0};
+        SDL_Color fontColor = {255,0,0,255};
         sTexts[TEXT_ENTER] = new Media::Text();
         sTexts[TEXT_ENTER]->load("Press Enter...", fontColor);
 
-        fontColor = {0,0,0};
+        fontColor = {0,0,0,255};
         sTexts[TEXT_HELP] = new Media::Text();
         sTexts[TEXT_HELP]->load("Press \"h\" to toggle help", fontColor);
 

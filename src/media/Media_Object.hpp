@@ -11,6 +11,7 @@ namespace Media
     {
         public:
             Media_Object();
+            virtual ~Media_Object();
 
             virtual bool load(const std::string& fileName) = 0;
     };

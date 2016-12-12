@@ -42,18 +42,7 @@ namespace Media
 
     void Text::setColor(Uint8 r, Uint8 g, Uint8 b)
     {
-        color = SDL_Color({r,g,b});
+        color = SDL_Color({r,g,b,255});
         load(text.c_str(), color);
     }
-
-    void Text::setBlendMode(SDL_BlendMode blending)
-    {
-
-    }
-
-    void Text::setAlpha(Uint8 alpha)
-    {
-
-    }
-
 }

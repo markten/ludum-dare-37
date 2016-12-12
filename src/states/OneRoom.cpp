@@ -130,21 +130,24 @@ namespace State
         {
             sPlayer->moveBack();
         }
-
         // set player-occupied grid sector to clean
         else if(currentMap[currentRow][currentCol] == Map::DIRTY)
         {
             currentMap[currentRow][currentCol] = Map::CLEAN;
         }
-
-        // check for victory
-        if(mapIsClean())
+        else if(currentMap[currentRow][currentCol] == Map::BASE)
         {
+            if(mapIsClean())
+            {
                 p_game->setPlayerWon(true);
                 p_game->setPlayerScore(gameTimer.getTicks()/1000.f);
                 gameTimer.stop();
                 p_game->popState();
+            }
         }
+
+        // check for victory
+
     }
 
     void OneRoom::draw()

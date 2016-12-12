@@ -63,7 +63,7 @@ namespace Media
 
     void Texture::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip, double scale)
     {
-        SDL_Rect renderRect = {x, y, scale*width, scale*height};
+        SDL_Rect renderRect = {x, y, int(scale*width), int(scale*height)};
 
         if(clip != NULL)
         {
