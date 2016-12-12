@@ -36,8 +36,15 @@ namespace State
                 TEXTURE_DIRTYFLOOR,
                 TEXTURE_BASE,
                 TEXTURE_COUCH,
+                TEXTURE_DESK,
+                TEXTURE_OTTOMAN,
+                TEXTURE_BED,
                 TEXTURE_TABLE,
+                TEXTURE_DRESSER,
+                TEXTURE_LAMP,
+                TEXTURE_CHAIR,
                 TEXTURE_ROBOBEAM,
+                TEXTURE_POOP,
                 TEXTURE_TOTAL
             };
 

@@ -26,6 +26,8 @@ namespace Display
     GTimer capTimer;
     std::stringstream fpsString;
     uint32_t frameCount = 0;
+    bool noVSYNC = true;
+    SDL_RendererInfo info;
 
     bool init()
     {
@@ -55,7 +57,6 @@ namespace Display
             else
             {
                 renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-                //| SDL_RENDERER_PRESENTVSYNC
 
                 if(renderer == NULL)
                 {
@@ -64,6 +65,20 @@ namespace Display
                 }
                 else
                 {
+                    // check for VSYNC
+                    if(SDL_GetRendererInfo(renderer, &info) < 0)
+                    {
+                        std::cout << "Could not retrieve renderer info! SDL Error: " << SDL_GetError() << std::endl;
+                    }
+                    else
+                    {
+                        if(info.flags & SDL_RENDERER_PRESENTVSYNC)
+                        {
+                            std::cout << "VSYNC Enabled" << std::endl;
+                            noVSYNC = false;
+                        }
+                    }
+
                     int imgFlags = IMG_INIT_PNG;
                     if(!(IMG_Init(imgFlags) & imgFlags))
                     {
@@ -125,12 +140,15 @@ namespace Display
 
     void update()
     {
-        int frameTicks = capTimer.getTicks();
-        if( frameTicks < SCREEN_TICKS_PER_FRAME )
+        if(noVSYNC)
         {
-            //Wait remaining time
-            SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+            int frameTicks = capTimer.getTicks();
+            if( frameTicks < SCREEN_TICKS_PER_FRAME )
+            {
+                SDL_Delay( SCREEN_TICKS_PER_FRAME - frameTicks );
+            }
         }
+
 
         // Render and clear the window
         SDL_RenderPresent(renderer);
@@ -144,7 +162,7 @@ namespace Display
             avgFPS = 0;
         }
 
-        std::cout << "AVG FPS: " << avgFPS << std::endl;
+        std::cout << "AVG FPS: " << avgFPS << "\r" << std::flush;
         capTimer.start();
     }
 

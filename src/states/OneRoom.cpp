@@ -126,27 +126,33 @@ namespace State
         if(sPlayer->getYPosition() > Display::SCREEN_HEIGHT-sPlayer->getHeight()) sPlayer->setYPosition(Display::SCREEN_HEIGHT-sPlayer->getHeight());
 
         // check for furniture collisions
-        if(currentMap[currentRow][currentCol] == Map::OCCUPIED)
-        {
-            sPlayer->moveBack();
-        }
-        // set player-occupied grid sector to clean
-        else if(currentMap[currentRow][currentCol] == Map::DIRTY)
-        {
-            currentMap[currentRow][currentCol] = Map::CLEAN;
-        }
-        else if(currentMap[currentRow][currentCol] == Map::BASE)
-        {
-            if(mapIsClean())
-            {
-                p_game->setPlayerWon(true);
-                p_game->setPlayerScore(gameTimer.getTicks()/1000.f);
-                gameTimer.stop();
-                p_game->popState();
-            }
-        }
 
-        // check for victory
+        switch(currentMap[currentRow][currentCol])
+        {
+            case Map::OCCUPIED:
+                sPlayer->moveBack();
+                break;
+
+            case Map::DIRTY:
+                currentMap[currentRow][currentCol] = Map::CLEAN;
+                break;
+
+            case Map::BASE:
+                if(mapIsClean())
+                {
+                    p_game->setPlayerWon(true);
+                    p_game->setPlayerScore(gameTimer.getTicks()/1000.f);
+                    gameTimer.stop();
+                    p_game->popState();
+                }
+                break;
+
+            case Map::POOP:
+                break;
+
+            default:
+                break;
+        }
 
     }
 
@@ -163,11 +169,18 @@ namespace State
                     case Map::DIRTY:
                         sTextures[TEXTURE_DIRTYFLOOR]->render(Map::GRID*col,Map::GRID*row);
                         break;
+                    case Map::OCCUPIED:
+                        sTextures[TEXTURE_DIRTYFLOOR]->render(Map::GRID*col,Map::GRID*row);
+                        break;
+                    case Map::POOP:
+                        sTextures[TEXTURE_DIRTYFLOOR]->render(Map::GRID*col,Map::GRID*row);
+                        sTextures[TEXTURE_POOP]->render(Map::GRID*col+10, Map::GRID*row+10);
+                        break;
                     case Map::BASE:
                         sTextures[TEXTURE_BASE]->render(Map::GRID*col,Map::GRID*row);
                         break;
                     default:
-                        //do nothing
+                        // render nothing
                     break;
                 }
             }
@@ -176,9 +189,16 @@ namespace State
         //render robot
         sTextures[TEXTURE_ROBOBEAM]->render(sPlayer->getXPosition()-24, sPlayer->getYPosition()-24, NULL, -sPlayer->getDirection());
         sPlayer->render(sPlayer->getXPosition(), sPlayer->getYPosition(), NULL, -sPlayer->getDirection());
+
         // render furniture
         sTextures[TEXTURE_COUCH]->render(5*Map::GRID, 2*Map::GRID);
         sTextures[TEXTURE_TABLE]->render(6*Map::GRID, 7*Map::GRID);
+        sTextures[TEXTURE_LAMP]->render(2*Map::GRID, 2*Map::GRID);
+        sTextures[TEXTURE_OTTOMAN]->render(5*Map::GRID, 10*Map::GRID);
+        sTextures[TEXTURE_CHAIR]->render(16*Map::GRID, 4*Map::GRID);
+        sTextures[TEXTURE_DESK]->render(17*Map::GRID, 2*Map::GRID);
+        sTextures[TEXTURE_BED]->render(14*Map::GRID, 10*Map::GRID+10);
+        sTextures[TEXTURE_DRESSER]->render(8*Map::GRID, 13*Map::GRID);
     }
 
     void OneRoom::loadMedia()
@@ -202,14 +222,35 @@ namespace State
         sTextures[TEXTURE_BASE]->load("ass/base.png");
 
         sTextures[TEXTURE_COUCH] = new Media::Texture();
-        sTextures[TEXTURE_COUCH]->load("ass/couch1.png");
+        sTextures[TEXTURE_COUCH]->load("ass/couch.png");
+
+        sTextures[TEXTURE_BED] = new Media::Texture();
+        sTextures[TEXTURE_BED]->load("ass/bed.png");
+
+        sTextures[TEXTURE_OTTOMAN] = new Media::Texture();
+        sTextures[TEXTURE_OTTOMAN]->load("ass/ottoman.png");
+
+        sTextures[TEXTURE_DESK] = new Media::Texture();
+        sTextures[TEXTURE_DESK]->load("ass/desk.png");
+
+        sTextures[TEXTURE_CHAIR] = new Media::Texture();
+        sTextures[TEXTURE_CHAIR]->load("ass/chair.png");
 
         sTextures[TEXTURE_TABLE] = new Media::Texture();
-        sTextures[TEXTURE_TABLE]->load("ass/table1.png");
+        sTextures[TEXTURE_TABLE]->load("ass/table.png");
+
+        sTextures[TEXTURE_DRESSER] = new Media::Texture();
+        sTextures[TEXTURE_DRESSER]->load("ass/dresser.png");
+
+        sTextures[TEXTURE_LAMP] = new Media::Texture();
+        sTextures[TEXTURE_LAMP]->load("ass/lamp.png");
 
         sTextures[TEXTURE_ROBOBEAM] = new Media::Texture();
         sTextures[TEXTURE_ROBOBEAM]->load("ass/robot_beam.png");
         sTextures[TEXTURE_ROBOBEAM]->setAlpha(100);
+
+        sTextures[TEXTURE_POOP] = new Media::Texture();
+        sTextures[TEXTURE_POOP]->load("ass/poop.png");
 
         std::cout << "\tdone." << std::endl;
 
