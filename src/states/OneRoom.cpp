@@ -149,7 +149,7 @@ namespace State
 
             case Map::POOP:
                 streaking = true;
-                std::cout << "Now streaking" << std::endl;
+                sPlayer->setVelocity(2);
                 break;
 
             default:
@@ -159,9 +159,9 @@ namespace State
         if(streaking)
         {
             frameCount++;
-            if(frameCount == 5)
+            if(frameCount == 15)
             {
-                std::array<int,3> newPosition = {sPlayer->getXPosition(), sPlayer->getYPosition(), -sPlayer->getDirection()};
+                std::array<int,3> newPosition = {int(sPlayer->getXPosition()), int(sPlayer->getYPosition()), int(-sPlayer->getDirection())};
                 streakPositions.push_back(newPosition);
                 frameCount = 0;
             }

@@ -10,7 +10,8 @@ namespace Media
     Player::Player()
     : Sprite(0,0)
     {
-
+        mIncrement = 3.0;
+        mVelocity = 5;
     }
 
     Player::~Player()

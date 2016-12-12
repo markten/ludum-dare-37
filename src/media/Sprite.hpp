@@ -34,6 +34,7 @@ namespace Media
 
             double mVelocity = 0;
             double mDirection = 0;
+            double mIncrement = 0;
 
             double xPosition = 300;
             double yPosition = 400;

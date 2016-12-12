@@ -25,10 +25,6 @@ namespace Media
             bool goingBackward = false;
             bool turningRight = false;
             bool turningLeft = false;
-
-            double mIncrement = 3.0;
-            double mVelocity = 5;
-
     };
 }
 

@@ -86,7 +86,7 @@ namespace State
         std::cout << "Loading text..." << std::endl;
 
         std::ostringstream scoreString;
-        scoreString << p_game->getPlayerScore();
+        scoreString << p_game->getPlayerScore() << "s";
 
         SDL_Color textColor = {0,0,0,255};
         sTexts[TEXT_PLAYERSCORE] = new Media::Text();
@@ -114,15 +114,15 @@ namespace State
             for(int index = 0; index < 3; index++)
             {
                 std::getline(scoreFile, line);
-                topScores[index] << line;
+                topScores[index] << line << "s";
             }
         }
         else
         {
             std::cout << "Error opening score file. Loading default values." <<std::endl;
-            topScores[0] << 121.00;
-            topScores[1] << 131.00;
-            topScores[2] << 141.00;
+            topScores[0] << 121.00 << "s";
+            topScores[1] << 131.00 << "s";
+            topScores[2] << 141.00 << "s";
         }
 
         scoreFile.close();
