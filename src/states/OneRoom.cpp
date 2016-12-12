@@ -22,7 +22,8 @@ namespace State
         loadMap();
 
         gameTimer.start();
-        //sMusic[MUSIC_CLAVIER]->play();
+        sMusic[MUSIC_CLAVIER]->play();
+        sSounds[SOUND_VACUUM]->play(true);
         std::cout << "GAME STATE: OneRoom" << std::endl;
     }
 
@@ -284,6 +285,13 @@ namespace State
 
         sPlayer = new Media::Player();
         sPlayer->load("ass/robot.png");
+
+        std::cout << "\tdone." << std::endl;
+
+        std::cout << "Loading sounds..." << std::endl;
+
+        sSounds[SOUND_VACUUM] = new Media::Sound();
+        sSounds[SOUND_VACUUM]->load("ass/vacuum.ogg");
 
         std::cout << "\tdone." << std::endl;
 

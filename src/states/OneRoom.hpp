@@ -65,6 +65,7 @@ namespace State
 
             enum Sounds
             {
+                SOUND_VACUUM,
                 SOUND_TOTAL
             };
 

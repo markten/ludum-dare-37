@@ -15,7 +15,7 @@ namespace Media
 
             bool load(const std::string& fileName) override;
             void free();
-            void play();
+            void play(bool loop);
 
         private:
             Mix_Chunk* data = NULL;

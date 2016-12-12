@@ -37,9 +37,17 @@ namespace Media
         data = NULL;
     }
 
-    void Sound::play()
+    void Sound::play(bool loop)
     {
-        Mix_PlayChannel(-1, data, 0);
+        if(loop)
+        {
+            Mix_PlayChannel(-1, data, -1);
+        }
+        else
+        {
+            Mix_PlayChannel(-1, data, 0);
+        }
+
     }
 
 }
