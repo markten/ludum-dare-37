@@ -1,14 +1,21 @@
-# Ludum Dare 37
+# LD37 - Robovac Simulator 2k16
 
-Right now this is just some baseline code for Ludum Dare.
+Can you clean the room in time?
 
-## Dependencies
+Code, Sound, & Art by Mark Tentindo
 
-`SDL2`
+Art & Concept by Brandon Bernier
+
+## Tools used
+
+**Language:** C++/SDL2
+**IDE:** Code::Blocks
+**Graphics:** GIMP
+**Audio:** Audacity`
 
 ## Acknowledgments
 
-A special thanks to the various tutorials that have lent some code and helped me prepare for this event.
+A special thanks to the various tutorials that have a lot of code and helped me prepare for this event.
 
 [Lazy Foo' Productions SDL2 Tutorial](http://lazyfoo.net/tutorials/SDL/index.php)
 
