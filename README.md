@@ -6,12 +6,25 @@ Code, Sound, & Art by Mark Tentindo
 
 Art & Concept by Brandon Bernier
 
-## Tools used
+## Tools
 
 **Language:** C++/SDL2
+
 **IDE:** Code::Blocks
+
 **Graphics:** GIMP
+
 **Audio:** Audacity`
+
+## Dependencies
+The runtime dependencies are included in the windows build. For GNU/Linux, you will have to see what your package manager has to satisfy these dependencies. It will build and run on Arch.
+
+```
+SDL2
+SDL2_image
+SDL2_ttf
+SDL2_mixer
+```
 
 ## Acknowledgments
 
