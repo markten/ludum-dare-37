@@ -148,10 +148,23 @@ namespace State
                 break;
 
             case Map::POOP:
+                streaking = true;
+                std::cout << "Now streaking" << std::endl;
                 break;
 
             default:
                 break;
+        }
+
+        if(streaking)
+        {
+            frameCount++;
+            if(frameCount == 5)
+            {
+                std::array<int,3> newPosition = {sPlayer->getXPosition(), sPlayer->getYPosition(), -sPlayer->getDirection()};
+                streakPositions.push_back(newPosition);
+                frameCount = 0;
+            }
         }
 
     }
@@ -173,8 +186,11 @@ namespace State
                         sTextures[TEXTURE_DIRTYFLOOR]->render(Map::GRID*col,Map::GRID*row);
                         break;
                     case Map::POOP:
-                        sTextures[TEXTURE_DIRTYFLOOR]->render(Map::GRID*col,Map::GRID*row);
-                        sTextures[TEXTURE_POOP]->render(Map::GRID*col+10, Map::GRID*row+10);
+                        if(!streaking)
+                        {
+                            sTextures[TEXTURE_DIRTYFLOOR]->render(Map::GRID*col,Map::GRID*row);
+                            sTextures[TEXTURE_POOP]->render(Map::GRID*col+10, Map::GRID*row+10);
+                        }
                         break;
                     case Map::BASE:
                         sTextures[TEXTURE_BASE]->render(Map::GRID*col,Map::GRID*row);
@@ -184,6 +200,12 @@ namespace State
                     break;
                 }
             }
+        }
+
+        // render streaks
+        for(int streak = 0; streak < streakPositions.size(); streak++)
+        {
+            sTextures[TEXTURE_STREAK]->render(streakPositions[streak][0], streakPositions[streak][1], NULL, streakPositions[streak][2]);
         }
 
         //render robot
@@ -251,6 +273,10 @@ namespace State
 
         sTextures[TEXTURE_POOP] = new Media::Texture();
         sTextures[TEXTURE_POOP]->load("ass/poop.png");
+
+        sTextures[TEXTURE_STREAK] = new Media::Texture();
+        sTextures[TEXTURE_STREAK]->load("ass/streak.png");
+        sTextures[TEXTURE_STREAK]->setAlpha(200);
 
         std::cout << "\tdone." << std::endl;
 

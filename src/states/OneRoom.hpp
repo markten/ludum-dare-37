@@ -4,6 +4,7 @@
 #include "Game_State.hpp"
 
 #include <array>
+#include <vector>
 
 #include "../GTimer.hpp"
 
@@ -24,11 +25,13 @@ namespace State
             void loadMap();
             void printMap();
             bool mapIsClean();
+            int frameCount = 0;
+            bool streaking = false;
 
             GTimer gameTimer;
 
             std::array<std::array<int,20>,15> currentMap;
-            std::array<std::array<int,20>,15> currentMapRotations;
+            std::vector<std::array<int,3>> streakPositions;
 
             enum Textures
             {
@@ -45,6 +48,7 @@ namespace State
                 TEXTURE_CHAIR,
                 TEXTURE_ROBOBEAM,
                 TEXTURE_POOP,
+                TEXTURE_STREAK,
                 TEXTURE_TOTAL
             };
 
